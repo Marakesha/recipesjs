@@ -1,0 +1,40 @@
+doctype
+html
+  head
+    meta(charset='utf-8')
+    title= title
+    // Latest compiled and minified CSS
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
+    // Optional theme
+    link(rel='stylesheet', href='/bootstrap/css/bootstrap-theme.min.css')
+    // Latest compiled and minified JavaScript
+    script(src='/jquery-3.1.1.min.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
+    script(src='/ckeditor/ckeditor.js')
+    link(rel='stylesheet', href='/style.css?777') 
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/chunkfive-fontface.css')
+  body
+    .background
+          img.img-responsive(src='images/garden_spells2.jpg', alt='Responsive image')
+  nav.navbar.navbar-default
+    ul.nav.navbar-nav
+        li
+                a(href='/') Home
+        li
+                a(href="/recipes") List
+        li
+                a(href='#') Favorites
+        li
+                a(href='#') Admin
+        li
+                a(href='/about') About
+        li
+                a(href='/contact') Contact Us
+  section#wrapper
+        block content
+        footer 
+          section.css-table
+            section.four-column
+              section.cell
+                p (c)copyright anna
