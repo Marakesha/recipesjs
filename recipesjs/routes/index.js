@@ -3,7 +3,8 @@ var router = express.Router();
 
 router.get('/', function(req, res){
   res.render('index', {
-    title: 'Garden Spells: Home'
+    title: 'Garden Spells: Home',
+    text:"welcome to my website"
   });
 });
 

@@ -1,8 +1,3 @@
-/**
- * Created by r_eperep on 7/06/17.
- */
-
-
 module.exports = {
     name:"Anna recepis",
     db:{
