@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-
+var recipe_controller = require('../app/recipe_controller');
 router.get('/', function(req, res){
   res.render('index', {
     title: 'Garden Spells: Home',
@@ -20,6 +20,10 @@ router.get('/recipes', function(req, res){
         recipe:"all"
     });
 });
+
+router.get('/recipeslist',recipe_controller.list);
+
+
 router.get('/contact', function(req, res){
   res.render('contact', {
     title: 'Contact'

@@ -1,15 +1,31 @@
 var express = require('express');
+
+
+// setup database connection
+var mongoose = require('mongoose');
+var mongoDB = 'mongodb://localhost:27017/recipes'; //my bd
+var autoIncrement = require('mongoose-auto-increment');
+mongoose.Promise = require('bluebird');
+mongoose.connect(mongoDB, {useMongoClient: true});
+autoIncrement.initialize(mongoose.connection);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var paginate = require('express-paginate');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
 
+// add pagination
+app.use(paginate.middleware(12, 50));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

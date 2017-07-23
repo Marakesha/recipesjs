@@ -5,3 +5,28 @@ block content
   p Welcome to #{title}
   p Привет
   p #{recipe}
+  div.row
+    each recipe in recipes
+      ul
+        li
+          a(href='/recipe/'+ recipe._id) #{recipe.recipe_title}
+          p 123
+  //if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
+  //    div.page-numbers
+  //        div.container
+  //            div.col-md-12.text-center
+  //                div.pagination-content
+  //                    ul
+  //                        if paginate.hasPreviousPages
+  //                            li
+  //                                a(href=paginate.href(true))
+  //                                    i.fa.fa-angle-double-left
+  //                        if pages
+  //                            each page in pages
+  //                                - var aktive = (currentPage == page.number ? 'active' : '')
+  //                                li(class=aktive)
+  //                                    a(href=page.url)= page.number
+  //                        if paginate.hasNextPages(pageCount)
+  //                            li
+  //                                a(href=paginate.href())
+  //                                    i.fa.fa-angle-double-right
