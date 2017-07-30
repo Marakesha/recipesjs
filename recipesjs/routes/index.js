@@ -20,9 +20,29 @@ router.get('/recipes', function(req, res){
         recipe:"all"
     });
 });
+router.get('/recipecreate', function(req, res){
+    res.render('recipe_edit', {
+        title: 'Create',
+        recipe:{_id:"new"}
+
+    });
+});
 
 router.get('/recipeslist',recipe_controller.list);
 
+/* GET request for one recipe */
+router.get('/recipe/:id', recipe_controller.one);
+/* GET request for one recipe */
+router.get('/recipe_delete/:id', recipe_controller.one_delete);
+
+/* GET request for one recipe */
+router.get('/recipe_edit/:id', recipe_controller.one_edit);
+// router.post('/edit', recipe_controller.one);
+router.post('/edit', function(req, res) {
+    //console.log(req.body);
+    recipe_controller.one_update(req, res);
+
+});
 
 router.get('/contact', function(req, res){
   res.render('contact', {

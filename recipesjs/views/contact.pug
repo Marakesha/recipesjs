@@ -3,4 +3,16 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  p Привет
+  form(method="post" action="/contact")
+    label(for="title") From:
+    input(type="text", name="title")
+    input(type="hidden", name="id")
+    br
+    label(for="resp") Message:
+    br
+    textarea#resp( name="message", rows="6", cols="66" )
+      |
+    br
+
+
+    input(type="submit", value="Send")

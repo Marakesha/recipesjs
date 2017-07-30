@@ -4,16 +4,18 @@ var path = require('path');
 var fs = require('fs');
 var paginate = require('express-paginate');
 var chunks = require('array.chunk');
-exports.list = function(req, res, next) {
-    Recipe.paginate({}, { page: req.query.page, limit: req.query.limit }, function(err, result) {
-        if (err) { return next(err); }
+exports.list = function (req, res, next) {
+    Recipe.paginate({}, {page: req.query.page, limit: req.query.limit}, function (err, result) {
+        if (err) {
+            return next(err);
+        }
 
         var pageCount = result.pages;
         var itemCount = result.total;
         var currentPage = result.currentPage;
 
         res.format({
-            html: function() {
+            html: function () {
                 res.render('recipes', {
                     title: 'Recipes list',
                     recipes: result.docs,
@@ -26,3 +28,95 @@ exports.list = function(req, res, next) {
         });
     });
 };
+exports.one = function (req, res, next) {
+    async.parallel({
+        recipe: function (callback) {
+            Recipe.findOne({_id: req.params.id}).exec(callback);
+        }
+    }, function (err, results) {
+        if (err) {
+            return next(err);
+        }
+
+        if (!results.recipe) {
+            var notFound = new Error('Recipe ' + req.params.id + ' not found');
+
+            notFound.status = 404;
+            return next(notFound);
+        }
+
+
+        //  var breadcrumbs = [{ title: 'Vehicles', link: '/vehicles' }, { title: 'Vehicle', link: null }];
+
+        res.render(
+            'recipe',
+            {
+                title: results.recipe.recipe_title,
+                recipe: results.recipe,
+            });
+    });
+};
+exports.one_edit = function (req, res, next) {
+    async.parallel({
+        recipe: function (callback) {
+            Recipe.findOne({_id: req.params.id}).exec(callback);
+        }
+    }, function (err, results) {
+        if (err) {
+            return next(err);
+        }
+
+        if (!results.recipe) {
+            var notFound = new Error('Recipe ' + req.params.id + ' not found');
+
+            notFound.status = 404;
+            return next(notFound);
+        }
+
+
+        //  var breadcrumbs = [{ title: 'Vehicles', link: '/vehicles' }, { title: 'Vehicle', link: null }];
+
+        res.render(
+            'recipe_edit',
+            {
+                title: results.recipe.recipe_title,
+                recipe: results.recipe,
+            });
+    });
+};
+exports.one_update = function (req, res, next) {
+    if (req.body.id === 'new') {
+        let recipe = new Recipe({
+            recipe_title: req.body.title,
+            recipe_body: req.body.body
+        }).save(function (err, recipe) {
+            //  console.log(room.id);
+            res.redirect('recipe/' + recipe.id);
+        });
+
+    }
+    else {
+        Recipe.findByIdAndUpdate(req.body.id, {
+            $set: {
+                recipe_title: req.body.title,
+                recipe_body: req.body.body
+            }
+        }, function () {
+            res.redirect('recipeslist');
+        })
+    }
+
+
+}
+exports.one_delete = function (req, res, next) {
+
+    Recipe.findByIdAndRemove(req.params.id, function (err, recipe) {
+        // We'll create a simple object to send back with a message and the id of the document that was removed
+        // You can really do this however you want, though.
+        res.redirect('/recipeslist');
+    });
+
+
+
+
+}

@@ -1,0 +1,22 @@
+extends layout
+
+block content
+
+  h1= title
+  form(method="post" action="/edit")
+    label(for="title") Title:
+    input(type="text", name="title", value=recipe.recipe_title)
+    input(type="hidden", name="id", value=recipe._id)
+    br
+    label(for="resp") Body:
+    br
+    textarea#resp( name="body", rows="6", cols="66" )
+      | #{recipe.recipe_body}
+    br
+    script.
+      // Replace the <textarea id="editor1"> with a CKEditor
+      // instance, using default configuration.
+      CKEDITOR.replace( 'resp' );
+
+
+    input(type="submit", value="Save")

@@ -25,7 +25,7 @@ var users = require('./routes/users');
 var app = express();
 
 // add pagination
-app.use(paginate.middleware(12, 50));
+app.use(paginate.middleware(10, 50));
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
