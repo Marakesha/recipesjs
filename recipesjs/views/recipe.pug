@@ -3,5 +3,16 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  p Привет
+  div.ingredient-list
+    h4 Ingredients
+    form(method="post" action="/addtoshopping")
+    ul.ingredient
+      each ingredient in recipe.ingredients
+        li #{ingredient.text}:#{ingredient.amount}
+    input(type="submit", value="Add to shopping list")
   p !{recipe.recipe_body}
+  p --
+    br
+    a(href='/recipe_edit/' + recipe._id) Edit
+    | |
+    a(href='/recipe_delete/' + recipe._id) Remove

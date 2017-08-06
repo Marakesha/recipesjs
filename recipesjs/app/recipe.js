@@ -12,6 +12,10 @@ var RecipeSchema = Schema({
     recipe_body: {type: String, required: true},
     recipe_added: {type: Date},
     recipe_updated: {type: Date},
+    ingredients: [{
+        text: String,
+        amount:Number,
+    }]
     });
 
 RecipeSchema.plugin(mongoosePaginate);

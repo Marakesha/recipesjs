@@ -79,3 +79,11 @@ color : #566047;
     background-image: none;
     border-radius: 0px;
 }
+.ingredient {
+    border: dotted 1px red;
+}
+.ingredient-list{
+    float: right;
+
+    padding: 20px;
+}

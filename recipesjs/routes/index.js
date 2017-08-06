@@ -23,8 +23,13 @@ router.get('/recipes', function(req, res){
 router.get('/recipecreate', function(req, res){
     res.render('recipe_edit', {
         title: 'Create',
-        recipe:{_id:"new"}
-
+        recipe: {
+            _id: "new",
+            ingredients:[{
+                text:'product',
+                amount:1
+            }]
+        }
     });
 });
 

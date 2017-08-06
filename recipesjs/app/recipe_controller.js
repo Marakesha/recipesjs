@@ -85,10 +85,27 @@ exports.one_edit = function (req, res, next) {
     });
 };
 exports.one_update = function (req, res, next) {
+
+    /*
+    console.log(req.body);
+    { title: 'wqeqwe',
+        id: '5975c7aabd2ca0350ee65e5f',
+        body: '<p>wqewqeqw</p>',
+        ingr: 'asd:12\r\nffd:32' }*/
+    var ingredients = req.body.ingr.split('\r\n');
+    var ingredientparced = [];
+    ingredients.forEach(function (item) {
+        var aa=item.split(':');
+        if(aa[0])ingredientparced.push({text:aa[0],amount:aa[1]});
+    });
+
+
+
     if (req.body.id === 'new') {
-        let recipe = new Recipe({
+        var recipe = new Recipe({
             recipe_title: req.body.title,
-            recipe_body: req.body.body
+            recipe_body: req.body.body,
+            ingredients: ingredientparced,
         }).save(function (err, recipe) {
             //  console.log(room.id);
             res.redirect('recipe/' + recipe.id);
@@ -96,13 +113,16 @@ exports.one_update = function (req, res, next) {
 
     }
     else {
+
         Recipe.findByIdAndUpdate(req.body.id, {
             $set: {
                 recipe_title: req.body.title,
-                recipe_body: req.body.body
+                recipe_body: req.body.body,
+                ingredients: ingredientparced,
             }
         }, function () {
-            res.redirect('recipeslist');
+            res.redirect('recipe/' + req.body.id);
+            //res.redirect('recipeslist');
         })
     }
 
@@ -115,8 +135,6 @@ exports.one_delete = function (req, res, next) {
         // You can really do this however you want, though.
         res.redirect('/recipeslist');
     });
-
-
 
 
 }
