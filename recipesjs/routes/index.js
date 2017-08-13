@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var recipe_controller = require('../app/recipe_controller');
+var shoppinglist_controller = require('../app/shoppinglist_controller');
 router.get('/', function(req, res){
   res.render('index', {
     title: 'Garden Spells: Home',
@@ -32,6 +33,10 @@ router.get('/recipecreate', function(req, res){
         }
     });
 });
+
+router.post('/shoppinglistreset',shoppinglist_controller.reset);
+router.post('/addtoshopping',shoppinglist_controller.addtolist);
+router.get('/addtoshopping',shoppinglist_controller.view);
 
 router.get('/recipeslist',recipe_controller.list);
 

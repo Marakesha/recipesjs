@@ -3,7 +3,7 @@ extends layout
 block content
     h1= title
     //- p #{recipe.body()}
-    div.row
+    div.row#recipeslist
         each recipe in recipes
             ul
                 li

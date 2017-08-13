@@ -6,10 +6,12 @@ block content
   div.ingredient-list
     h4 Ingredients
     form(method="post" action="/addtoshopping")
-    ul.ingredient
-      each ingredient in recipe.ingredients
-        li #{ingredient.text}:#{ingredient.amount}
-    input(type="submit", value="Add to shopping list")
+      ul.ingredient
+        - var n = 0;
+        each ingredient in recipe.ingredients
+          li #{ingredient.text}:#{ingredient.amount}
+          input(type="hidden", name="ingr"+(n++) value=ingredient.text+":"+ingredient.amount)
+      input(type="submit", value="Add to shopping list")
   p !{recipe.recipe_body}
   p --
     br

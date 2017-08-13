@@ -87,3 +87,12 @@ color : #566047;
 
     padding: 20px;
 }
+#cowntdownlist{
+    visibility: hidden;
+}
+#ingridientslist{
+    margin-left: 40px;
+}
+#recipeslist{
+    margin-left: 40px;
+}

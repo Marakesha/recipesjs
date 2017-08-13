@@ -1,5 +1,5 @@
 var express = require('express');
-
+var session=require('express-session');
 
 // setup database connection
 var mongoose = require('mongoose');
@@ -35,9 +35,18 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(cookieParser());
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+    secret: 'garden',
+    resave: true,
+    saveUninitialized: true,
+   // cookie: { secure: true }
+}));
+var sess;
 
 app.use('/', index);
 app.use('/users', users);
