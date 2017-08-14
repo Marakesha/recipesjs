@@ -13,12 +13,13 @@ exports.list = function (req, res, next) {
         var pageCount = result.pages;
         var itemCount = result.total;
         var currentPage = result.currentPage;
-
+        var sess = req.session;
         res.format({
             html: function () {
                 res.render('recipes', {
                     title: 'Recipes list',
                     recipes: result.docs,
+                    isadmin: sess.isadmin,
                     pageCount: pageCount,
                     currentPage: req.query.page,
                     itemCount: itemCount,
@@ -47,16 +48,18 @@ exports.one = function (req, res, next) {
 
 
         //  var breadcrumbs = [{ title: 'Vehicles', link: '/vehicles' }, { title: 'Vehicle', link: null }];
-
+        var sess = req.session;
         res.render(
             'recipe',
             {
                 title: results.recipe.recipe_title,
+                isadmin: sess.isadmin,
                 recipe: results.recipe,
             });
     });
 };
 exports.one_edit = function (req, res, next) {
+
     async.parallel({
         recipe: function (callback) {
             Recipe.findOne({_id: req.params.id}).exec(callback);
@@ -73,13 +76,14 @@ exports.one_edit = function (req, res, next) {
             return next(notFound);
         }
 
-
+        var sess = req.session;
         //  var breadcrumbs = [{ title: 'Vehicles', link: '/vehicles' }, { title: 'Vehicle', link: null }];
 
         res.render(
             'recipe_edit',
             {
                 title: results.recipe.recipe_title,
+                isadmin: sess.isadmin,
                 recipe: results.recipe,
             });
     });
@@ -92,6 +96,10 @@ exports.one_update = function (req, res, next) {
         id: '5975c7aabd2ca0350ee65e5f',
         body: '<p>wqewqeqw</p>',
         ingr: 'asd:12\r\nffd:32' }*/
+    var sess = req.session;
+    if(sess.isadmin!==1){
+        res.redirect('/');
+    }
     var ingredients = req.body.ingr.split('\r\n');
     var ingredientparced = [];
     ingredients.forEach(function (item) {
@@ -129,7 +137,10 @@ exports.one_update = function (req, res, next) {
 
 }
 exports.one_delete = function (req, res, next) {
-
+    var sess = req.session;
+    if(sess.isadmin!==1){
+        res.redirect('/');
+    }
     Recipe.findByIdAndRemove(req.params.id, function (err, recipe) {
         // We'll create a simple object to send back with a message and the id of the document that was removed
         // You can really do this however you want, though.

@@ -8,10 +8,11 @@ block content
             ul
                 li
                     a(href='/recipe/'+ recipe._id) #{recipe.recipe_title}
-                    p --
-                    a(href='/recipe_edit/'+ recipe._id) Edit
-                    ||
-                    a(href='/recipe_delete/'+ recipe._id) Remove
+                    if isadmin
+                        p --
+                        a(href='/recipe_edit/'+ recipe._id) Edit
+                        ||
+                        a(href='/recipe_delete/'+ recipe._id) Remove
     if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
         div.page-numbers
             div.container

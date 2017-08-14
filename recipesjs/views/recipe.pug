@@ -13,8 +13,9 @@ block content
           input(type="hidden", name="ingr"+(n++) value=ingredient.text+":"+ingredient.amount)
       input(type="submit", value="Add to shopping list")
   p !{recipe.recipe_body}
-  p --
-    br
-    a(href='/recipe_edit/' + recipe._id) Edit
-    | |
-    a(href='/recipe_delete/' + recipe._id) Remove
+  if isadmin
+    p --
+      br
+      a(href='/recipe_edit/' + recipe._id) Edit
+      | |
+      a(href='/recipe_delete/' + recipe._id) Remove

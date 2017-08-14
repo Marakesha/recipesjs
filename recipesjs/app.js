@@ -20,7 +20,6 @@ var bodyParser = require('body-parser');
 var paginate = require('express-paginate');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
 
 var app = express();
 
@@ -49,7 +48,6 @@ app.use(session({
 var sess;
 
 app.use('/', index);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
