@@ -57,3 +57,5 @@ typings/
 # dotenv environment variables file
 .env
 
+/recipesjs/nbproject/private/
+/recipesjs copy/nbproject/private/
