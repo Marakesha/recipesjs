@@ -3,7 +3,8 @@ var session=require('express-session');
 
 // setup database connection
 var mongoose = require('mongoose');
-var mongoDB = 'mongodb://localhost:27017/recipes'; //my bd
+var mongoDB =  process.env.MONGODB_URI || 'mongodb://localhost:27017/recipes'; //my bd
+
 var autoIncrement = require('mongoose-auto-increment');
 mongoose.Promise = require('bluebird');
 mongoose.connect(mongoDB, {useMongoClient: true});
