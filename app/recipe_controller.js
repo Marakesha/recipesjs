@@ -142,8 +142,7 @@ exports.one_delete = function (req, res, next) {
         res.redirect('/');
     }
     Recipe.findByIdAndRemove(req.params.id, function (err, recipe) {
-        // We'll create a simple object to send back with a message and the id of the document that was removed
-        // You can really do this however you want, though.
+
         res.redirect('/recipeslist');
     });
 
