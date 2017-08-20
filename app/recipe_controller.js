@@ -59,7 +59,10 @@ exports.one = function (req, res, next) {
     });
 };
 exports.one_edit = function (req, res, next) {
-
+    var sess = req.session;
+    if(sess.isadmin!==1){
+        res.redirect('/');
+    }
     async.parallel({
         recipe: function (callback) {
             Recipe.findOne({_id: req.params.id}).exec(callback);
@@ -99,6 +102,7 @@ exports.one_update = function (req, res, next) {
     var sess = req.session;
     if(sess.isadmin!==1){
         res.redirect('/');
+        return;
     }
     var ingredients = req.body.ingr.split('\r\n');
     var ingredientparced = [];
