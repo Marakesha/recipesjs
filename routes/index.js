@@ -23,6 +23,11 @@ router.get('/recipes', function(req, res){
     });
 });
 router.get('/recipecreate', function(req, res){
+     var sess = req.session;
+    if(sess.isadmin!==1){
+        res.redirect('/');
+        return;
+    }
     res.render('recipe_edit', {
         title: 'Create',
         recipe: {
